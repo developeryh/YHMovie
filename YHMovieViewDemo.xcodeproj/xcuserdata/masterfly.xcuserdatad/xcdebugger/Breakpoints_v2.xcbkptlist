@@ -10,13 +10,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YHMovieViewDemo/YHMovieView/YHMovieManager.swift"
-            timestampString = "511193509.638493"
+            timestampString = "511202206.736459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "startAV(urlStr:frame:goalView:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YHMovieViewDemo/YHMovieView/YHMovieManager.swift"
+            timestampString = "511202214.633671"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "YHMovieManager"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "globalinit_33_4B839B31E892AD0854EC688068C06154_func0"
+                  moduleName = "YHMovieViewDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masterfly/Documents/IOS/XinRong/YHMovieViewDemo/YHMovieViewDemo/YHMovieView/YHMovieManager.swift"
+                  timestampString = "511202317.221788"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static YHMovieViewDemo.YHMovieManager.shareYHMovieManager.getter : YHMovieViewDemo.YHMovieManager"
+                  moduleName = "YHMovieViewDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/masterfly/Documents/IOS/XinRong/YHMovieViewDemo/YHMovieViewDemo/YHMovieView/YHMovieManager.swift"
+                  timestampString = "511202317.227444"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

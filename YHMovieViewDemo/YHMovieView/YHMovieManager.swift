@@ -9,17 +9,24 @@
 import UIKit
 import AVFoundation
 
-//单例
-private let shareYHMovieManager = YHMovieManager()
-final class YHMovieManagerSingle{
-    static let sharedYHMovieManagerSingle = YHMovieManagerSingle()
-    private init(){
-        
-    }
-}
+
+//private let shareYHMovieManager = YHMovieManager()
+//final class YHMovieManagerSingle{
+//    static let sharedYHMovieManagerSingle = YHMovieManagerSingle()
+//    private init(){
+//        
+//    }
+//}
 
 
 public class YHMovieManager: NSObject {
+    
+    //单例
+    static let shareYHMovieManager = YHMovieManager()
+    override init() {
+        
+    }
+
     
     var player:AVPlayer?
     var playerItem:AVPlayerItem?
@@ -53,12 +60,19 @@ public class YHMovieManager: NSObject {
     }
  
     
-    public func startAV(urlStr:String,frame:CGRect,goalView:UIView) -> Bool {
+    
+    /// 开始
+    ///
+    /// - Parameters:
+    ///   - urlStr: 资源地址
+    ///   - frame: 播放器大小
+    ///   - goalView: 承载播放器的view
+    public func startAV(urlStr:String,frame:CGRect,goalView:UIView) {
         
         let playerView = YHMovieView.init(frame: frame)
         playerView.playerItem = AVPlayerItem.init(url: NSURL.init(string: urlStr)! as URL)
         playerView.player = AVPlayer.init(playerItem: playerView.playerItem!)
-        shareYHMovieManager.playerView = playerView
+        YHMovieManager.shareYHMovieManager.playerView = playerView
     
         // 监听status属性
         playerView.playerItem?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
@@ -79,18 +93,18 @@ public class YHMovieManager: NSObject {
         //需要把图层插入到最底层，不会影响其他的视图
         playerView.layer.insertSublayer(playerLayer, at: 0)
         
+        //添加到对应承载播放器的view上
         goalView.addSubview(playerView)
-        return true
     }
     
     
     /// 播放完之后
     func moviePlayDidEnd() {
-        shareYHMovieManager.playerView?.stop()
+        YHMovieManager.shareYHMovieManager.playerView?.stop()
     }
     
     
-    
+    //kvo 监控
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         let playerItem = object as? AVPlayerItem
         if keyPath == "status"{
@@ -102,7 +116,7 @@ public class YHMovieManager: NSObject {
                 let totalStr = convertTime(second: durationSeconds)
                 let currentStr = convertTime(second: currentSeconds)
                 
-                shareYHMovieManager.playerView?.durationTimeLabel?.text = "\(currentStr) / \(totalStr)"
+                YHMovieManager.shareYHMovieManager.playerView?.durationTimeLabel?.text = "\(currentStr) / \(totalStr)"
                 
                 monitoringPlayback(playerItem: playerItem!)
 
@@ -117,7 +131,7 @@ public class YHMovieManager: NSObject {
             let totalDuration = CMTimeGetSeconds(duration)
             
             //缓存条
-            shareYHMovieManager.playerView?.progressView?.setProgress(Float(timeInterval / totalDuration), animated: true)
+            YHMovieManager.shareYHMovieManager.playerView?.progressView?.setProgress(Float(timeInterval / totalDuration), animated: true)
         }
         else{
             //前面条件都不成立的时候保证继续监控
@@ -142,7 +156,7 @@ public class YHMovieManager: NSObject {
     func availableDuration() -> Double {
 //        let loadedTimeRanges = YHMovieManager.SharedYHMovieManager.playerView?.player?.currentItem?.loadedTimeRanges
 
-        let loadedTimeRanges = shareYHMovieManager.playerView?.player?.currentItem?.loadedTimeRanges
+        let loadedTimeRanges = YHMovieManager.shareYHMovieManager.playerView?.player?.currentItem?.loadedTimeRanges
         
 //        获取缓冲区域
         let timeRange = loadedTimeRanges?.first?.timeRangeValue
@@ -157,7 +171,7 @@ public class YHMovieManager: NSObject {
     
     //改变当前时间和进度条
     func monitoringPlayback(playerItem:AVPlayerItem) {
-        _ =  shareYHMovieManager.playerView?.player?.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 1), queue: nil, using: { (time) in
+        _ =  YHMovieManager.shareYHMovieManager.playerView?.player?.addPeriodicTimeObserver(forInterval: CMTimeMake(1, 1), queue: nil, using: { (time) in
             
             let duration = playerItem.duration
             let currentTime = playerItem.currentTime()
@@ -166,8 +180,8 @@ public class YHMovieManager: NSObject {
             let totalStr = self.convertTime(second: durationSeconds)
             let currentStr = self.convertTime(second: currentSeconds)
             
-            shareYHMovieManager.playerView?.durationTimeLabel?.text = "\(currentStr) / \(totalStr)"
-            shareYHMovieManager.playerView?.slider?.setValue(Float(currentSeconds ) / Float(durationSeconds) , animated: true)
+            YHMovieManager.shareYHMovieManager.playerView?.durationTimeLabel?.text = "\(currentStr) / \(totalStr)"
+            YHMovieManager.shareYHMovieManager.playerView?.slider?.setValue(Float(currentSeconds ) / Float(durationSeconds) , animated: true)
 
             
 //            YHMovieManager.SharedYHMovieManager.playerView?.durationTimeLabel?.text = "\(currentStr) / \(totalStr)"
